@@ -8,7 +8,7 @@ kubectl create namespace cubix-cn
 helm upgrade appa spring-cubix-cn --install --namespace cubix-cn --values native.yaml
 
 # create secret for API key
-kubectl create secret generic hw6secret --from-literal api-key=c7e9de1e93637eb6157e3ab03698169e0fe392b17204dc42c12c2c55aa607819 --namespace cubix-cn
+kubectl create secret generic hw6secret --from-literal api-key=c7e9de1e93637eb6157e3ab03698169e0fe392b17204dc42c12c2c55aa607819 --namespace cubix-cn --save-config
 
 # uninstall the helm chart
 helm uninstall appa --namespace cubix-cn
