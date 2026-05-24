@@ -25,12 +25,19 @@ spec:
       serviceAccountName: {{ include "spring-cubix-cn.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "spring-cubix-cn.fullname" . }}
       containers:
         - name: {{ .Release.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ required "Image must be set in Values" .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /config
+              name: config-volume
           startupProbe:
             initialDelaySeconds: 1
             periodSeconds: 1
@@ -65,6 +72,11 @@ spec:
             value: "8080"
           - name: MANAGEMENT_SERVER_PORT
             value: "8081"
+          - name: TARGET_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: hw6secret
+                key: api-key
           ports:
             - name: http
               containerPort: 8080
