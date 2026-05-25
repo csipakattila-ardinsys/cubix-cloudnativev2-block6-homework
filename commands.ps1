@@ -1,6 +1,9 @@
 # init namespace
 kubectl create namespace cubix-cn
 
+# enable monitoring in namespace
+kubectl label ns/cubix-cn monitoring=true
+
 # install/upgrade the JVM deployment type
 #helm upgrade spring-cubix-cn spring-cubix-cn --install --namespace cubix-cn --values jvm.yaml
 # install/upgrade the native deployment type
