@@ -41,20 +41,18 @@ spec:
           startupProbe:
             initialDelaySeconds: 1
             periodSeconds: 1
-            failureThreshold: 29
+            failureThreshold: 30
             httpGet:
               port: management
               path: /actuator/health/liveness
           livenessProbe:
             periodSeconds: 10
-            timeoutSeconds: 10
             failureThreshold: 2
             httpGet:
               port: management
               path: /actuator/health/liveness
           readinessProbe:
             periodSeconds: 5
-            timeoutSeconds: 5
             failureThreshold: 1
             httpGet:
               port: management
